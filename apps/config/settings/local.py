@@ -8,7 +8,6 @@ INSTALLED_APPS += [
     'django_celery_results',
 ]
 
-result_backend = 'django-db'
 
 DATABASES = {
     'default': {
@@ -16,5 +15,3 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-# DJANGO_CELERY_BEAT_TZ_AWARE = False
-# CELERY_ENABLE_UTC = False
