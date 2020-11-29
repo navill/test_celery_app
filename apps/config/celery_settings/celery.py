@@ -9,14 +9,14 @@ from celery.schedules import crontab
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.local')
 
 BASE_REDIS_URL = os.environ.get('REDIS_URL', 'redis://localhost:6001')
-app = Celery('config')
-
-app.config_from_object('config.celery')
+app = Celery('celery_settings')
+print(BASE_REDIS_URL)
+app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 
 app.conf.broker_url = BASE_REDIS_URL
 app.conf.accept_content = ['json']
-app.conf.result_backend = 'db+sqlite:///results.sqlite'
+app.conf.result_backend = 'db+sqlite:///config/celery_settings/results/results.sqlite'
 app.conf.result_extended = True
 app.conf.beat_scheduler = 'django_celery_beat.schedulers.DatabaseScheduler'
 app.conf.beat_schedule = {
